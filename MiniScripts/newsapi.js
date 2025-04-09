@@ -1,13 +1,19 @@
+import express from 'express';
 import axios from 'axios';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config();
+const app = express();
+const PORT = process.env.PORT || 5000;
 
-const MONGO_URI = process.env.MONGO_URI;
-const NEWS_API = process.env.NEWS_API;
+const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://mohitsoniadmin:9829830910Mohit@cluster0.xsx2q.mongodb.net/";
+const NEWS_API = process.env.NEWS_API || "https://newsapi.org/v2/everything?q=environment%20india&language=en&sortBy=publishedAt&apiKey=033a2ded130942e7b2760c40cde5d1f1";
 
-// Mongoose Schema with imageUrl
+app.use(cors());
+
+// Mongoose Schema
 const articleSchema = new mongoose.Schema({
   title: String,
   description: String,
@@ -21,14 +27,15 @@ const articleSchema = new mongoose.Schema({
 });
 const Article = mongoose.model('Article', articleSchema);
 
-// Fetch & update news from API
+// Fetch & update news
 const updateNews = async () => {
   try {
     const response = await axios.get(NEWS_API);
     const articles = response.data.articles;
 
-    Article.deleteMany(); // Clear old articles
-    console.log(`Cleared ${await Article.countDocuments({})} old articles`);
+    const oldCount = await Article.countDocuments({});
+    await Article.deleteMany({});
+    console.log(`🧹 Cleared ${oldCount} old articles`);
 
     for (const article of articles) {
       await Article.findOneAndUpdate(
@@ -50,14 +57,23 @@ const updateNews = async () => {
   }
 };
 
-// Scheduler every 50 minutes
+// Scheduler
 const startScheduler = async () => {
-  await updateNews(); // Initial fetch
-  const interval = 50 * 60 * 1000;
-  setInterval(updateNews, interval);
+  await updateNews(); // Initial run
+  setInterval(updateNews, 50 * 60 * 1000); // Every 50 mins
 };
 
-// App entry point
+// GET Route to fetch all articles
+app.get('/news', async (req, res) => {
+  try {
+    const articles = await Article.find().sort({ publishedAt: -1 });
+    res.json(articles);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch articles' });
+  }
+});
+
+// Init app
 const init = async () => {
   try {
     await mongoose.connect(MONGO_URI, {
@@ -68,6 +84,10 @@ const init = async () => {
     console.log('✅ Connected to MongoDB');
 
     await startScheduler();
+
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running at http://localhost:${PORT}`);
+    });
   } catch (err) {
     console.error('❌ Initialization error:', err.message);
   }
