@@ -6,3 +6,7 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.standard-max-width{
+  max-width: 1480px;
+}
