@@ -121,7 +121,7 @@ A clean table format at the bottom of the page:
 
   return (
     <div className='h-screen flex items-center flex-col p-10 gap-10'>
-      <form onSubmit={handleSearch} className='w-full  flex items-center justify-center gap-2 max-w-[1280px]'>
+      <form onSubmit={handleSearch} className='w-full  flex items-center justify-center gap-2 standard-max-width'>
         <input
           type="text"
           value={query}
@@ -132,7 +132,7 @@ A clean table format at the bottom of the page:
         <button type="submit" className={` px-10 py-2 bg-white border-black border-2 rounded-lg custom-shadow cursor-pointer hover:border-none hover:bg-black hover:text-white disabled:bg-gray-300 `} disabled={searching} > {searching ? "Searching..." : "Search"} </button>
       </form>
       <div className="w-full flex items-center h-full  overflow-y-scroll scrollbar-hidden">
-        <div className="max-w-[1280px] h-full mx-auto w-full">
+        <div className="standard-max-width h-full mx-auto w-full">
             {
                 searching ? <ContentLoader/> : <div>{parse(results)}</div>
             }
