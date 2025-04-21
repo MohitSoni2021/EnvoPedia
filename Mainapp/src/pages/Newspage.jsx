@@ -1,66 +1,3 @@
-// import React from 'react'
-// import NewsCardComponent from '../components/common/NewsCardComponent';
-// import { Link } from 'react-router-dom';
-// import ContentLoader from '../components/ContentLoader';
-
-// const NewsPage = () => {
-//   const [news, setNews] = React.useState([]);
-//   const [loading, setLoading] = React.useState(true);
-//   const [error, setError] = React.useState(null);
-//   const fetchNews = async () => {
-//     try {
-//       const response = await fetch('http://localhost:5000/news');
-//       if (!response.ok) {
-//         throw new Error('Network response was not ok');
-//       }
-//       const data = await response.json();
-//       setNews(data);
-//     } catch (error) {
-//       setError(error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-//   React.useEffect(() => {
-//     fetchNews();
-//   }, []);
-//   return (
-//     <>
-//       <div className="flex flex-wrap justify-center w-screen h-screen overflow-y-scroll px-4">
-//           <div className="standard-max-width w-full">
-//             <h1 className='text-5xl font-extrabold text-center py-4 border-b-2 mb-2 border-gray-500'>
-//               <span className='bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent'>
-//                 Latest News
-//               </span>
-//             </h1>
-//             {loading && <div className='h-full w-full flex items-center justify-center'><ContentLoader /></div>}
-//             {error && <div>Error: {error.message}</div>}
-//             {news.length === 0 && !loading && <div>No news available</div>}
-//             <div className="grid grid-cols-3 gap-4 max-[1200px]:grid-cols-2 max-[800px]:grid-cols-1 ">
-//               {news.map((article, index) => (
-//                   <Link
-//                     to={`${article.url}`}
-//                     target='_blank'
-//                   >
-//                     <NewsCardComponent 
-//                     key={index} 
-//                     time={article.publishedAt}
-//                     title={article.title}
-//                     desc={article.description}
-//                     image={article.imageUrl}
-//                     source={article.source.name}
-//                     />
-//                   </Link>
-//               ))}
-//             </div>
-//           </div>
-//       </div>
-//     </>
-//   )
-// }
-
-// export default NewsPage;
-
 import React from 'react';
 import NewsCardComponent from '../components/common/NewsCardComponent';
 import { Link } from 'react-router-dom';
@@ -75,7 +12,7 @@ const NewsPage = () => {
 
   const fetchNews = async () => {
     try {
-      const response = await fetch('http://localhost:3000/news');
+      const response = await fetch('https://envopedia.onrender.com/news');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

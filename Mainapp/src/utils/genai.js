@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-const API_KEY = 'AIzaSyB5QnVEYMYRgq3lslanv6PQH073FpfaR0k'; // Replace with your actual API key
-const BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
-
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+const BASE_URL = import.meta.env.VITE_GEMINI_API_URL;
 
 const generateContent = async (text) => {
   const url = `${BASE_URL}?key=${API_KEY}`;
