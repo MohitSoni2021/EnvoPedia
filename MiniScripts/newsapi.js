@@ -8,8 +8,8 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://mohitsoniadmin:9829830910Mohit@cluster0.xsx2q.mongodb.net/";
-const NEWS_API = process.env.NEWS_API || "https://newsapi.org/v2/everything?q=environment%20india&language=en&sortBy=publishedAt&apiKey=033a2ded130942e7b2760c40cde5d1f1";
+const MONGO_URI = process.env.MONGO_URI;
+const NEWS_API = process.env.NEWS_API;
 
 app.use(cors());
 
