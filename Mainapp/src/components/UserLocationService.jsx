@@ -268,7 +268,7 @@ function LocationComponent() {
     (async () => {
       const options = {
         method: "GET",
-        url: "https://api.weatherstack.com/current?access_key=7157b18bd42333b40697827ba11504fe--",
+        url: "https://api.weatherstack.com/current?access_key=7157b18bd42333b40697827ba11504fe",
         params: {
           query: `${browserLocation.latitude},${browserLocation.longitude}`,
         },
